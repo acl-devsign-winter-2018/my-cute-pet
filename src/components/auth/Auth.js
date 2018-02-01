@@ -13,7 +13,7 @@ export default class Auth {
   constructor() {
     // second part of route is encoded redirect hash
     const routes = window.location.hash.split('/');
-    this.redirect = decodeURIComponent(routes[1]) || '#';
+    this.redirect = decodeURIComponent(routes[1] || '#');
   }
 
   render() {
