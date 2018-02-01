@@ -23,18 +23,18 @@ export default class App {
     window.addEventListener('hashchange', this.hashChange);
 
     auth.onAuthStateChanged(user => {
-      if(user) {
-        // TODO
-      }
-      // make sure we are on a public page
-      else if(!this.page.isPublic) {
+      this.user = user;
+      
+      // if no user, make sure we are on a public page
+      if(!user && !this.page.isPublic) {
         window.location.hash = '#';
       }
     });
   }
 
   setPage() {
-    const routes = window.location.hash.split('/');
+    const { hash } = window.location;
+    const routes = hash.split('/');
     const route = routes[0];
     // if we are already at this top-level page, no need to transition
     // ( could be a subroute change: /pets --> /pets/123 )
@@ -47,19 +47,20 @@ export default class App {
     // get the new component info from the map.
     const { Component, isPublic } = map.get(route) || homepage;
     
+    let component = null;
+
     if(!isPublic && !this.user) {
-      console.log('oh noes! not authorized');
+      window.location.hash = `#auth/${encodeURIComponent(hash)}`;
     }
     else {
       // create the component instance
-      const component = new Component();
+      component = new Component();
       // assign new stuff as the current component instance
       this.page = { route, component, isPublic };
       // add the new component's dom via render()
       this.main.appendChild(component.render());
     }
 
-    
   }
 
   render() {

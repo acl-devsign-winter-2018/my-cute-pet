@@ -10,8 +10,10 @@ const template = new Template(html);
 
 export default class Auth {
 
-  constructor(redirect = '#') {
-    this.redirect = redirect;
+  constructor() {
+    // second part of route is encoded redirect hash
+    const routes = window.location.hash.split('/');
+    this.redirect = decodeURIComponent(routes[1]) || '#';
   }
 
   render() {
