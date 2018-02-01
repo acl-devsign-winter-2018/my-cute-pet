@@ -71,7 +71,7 @@ export default class Images {
     const map = new Map();
 
     this.childAdded = this.petImages.on('child_added', data => {
-      const image = new Image(data.val(), () => this.handleRemove(data.key));
+      const image = new Image(data.val(), this.editable ? () => this.handleRemove(data.key) : null);
       const imageDom = image.render();
       map.set(data.key, {
         nodes: [...imageDom.childNodes],

@@ -25,8 +25,12 @@ export default class App {
     let authed = false;
 
     auth.onAuthStateChanged(user => {
+      // store so we can refer to current user in the setPage method
       this.user = user;
 
+      // sometimes page routing can load before firebase fires this event.
+      // Issue here, is we want to know if we have user or not _before_ we load
+      // the current page;
       if(!authed) {
         authed = true;  
         this.setPage();
@@ -44,7 +48,7 @@ export default class App {
     const routes = hash.split('/');
     const route = routes[0];
     // if we are already at this top-level page, no need to transition
-    // ( could be a subroute change: /pets --> /pets/123 )
+    // ( could be a subroute change: #pets --> #pets/123 )
     if(this.page && route === this.page.route) return;
 
     // unrender the prior component and clear from dom:

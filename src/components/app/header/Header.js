@@ -1,7 +1,9 @@
 import html from './header.html';
 import './header.css';
 import Template from '../../Template';
+import User from './User';
 import { auth } from '../../../services/firebase';
+import { removeChildren } from '../../dom';
 
 const template = new Template(html);
 
@@ -9,24 +11,23 @@ export default class Header {
 
   render() {
     const dom = template.clone();
-    const userName = dom.querySelector('.user-name');
-    const authLink = dom.querySelector('a[href="#auth"]');
-    
+    const userItem = dom.querySelector('.user-nav');
+
     auth.onAuthStateChanged(user => {
+      let child = null;
+
       if(user) {
-        userName.textContent = user.displayName;
-        authLink.textContent = 'Sign Out';
-        authLink.setAttribute('href', '#');
-        authLink.onclick = () => {
-          setTimeout(() => auth.signOut());
-        };
+        child = new User().render();
       }
       else {
-        userName.textContent = '';
-        authLink.textContent = 'Sign In';
-        authLink.href = '#auth';
-        authLink.onclick = null;
+        child = document.createElement('a');
+        child.textContent = 'Sign In';
+        child.href = '#auth';
+        userItem.appendChild(child);
       }
+
+      removeChildren(userItem);
+      userItem.appendChild(child);
     });
     return dom;
   }

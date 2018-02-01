@@ -26,10 +26,13 @@ export default class Auth {
         signInSuccessUrl: `${origin}${pathname}${this.redirect}`,
         signInOptions: [
           providers.EmailAuthProvider.PROVIDER_ID,
-          providers.GithubAuthProvider.PROVIDER_ID
+          providers.GithubAuthProvider.PROVIDER_ID,
+          providers.TwitterAuthProvider.PROVIDER_ID,
+          providers.GoogleAuthProvider.PROVIDER_ID
         ]
       });
     });
+
     return dom;
   }
 
