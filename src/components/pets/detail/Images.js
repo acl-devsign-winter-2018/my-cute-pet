@@ -8,9 +8,10 @@ const petsImages = db.ref('pet-images');
 const petImageStorage = storage.ref('pets');
 
 export default class Images {
-  constructor(key) {
+  constructor(key, editable) {
     this.petImages = petsImages.child(key);
     this.imageStorage = petImageStorage.child(key);
+    this.editable = editable;
   }
 
   handleUpload(file) {
@@ -48,18 +49,23 @@ export default class Images {
   render() {
     const dom = template.clone();
     
-    this.fileInput = dom.querySelector('input[type=file]');
-    this.fileInput.addEventListener('change', event => {
-      const files = event.target.files;
-      if(!files || !files.length) return;
-      this.handleUpload(files[0]);
-    });
+    if(this.editable) {
+      this.fileInput = dom.querySelector('input[type=file]');
+      this.fileInput.addEventListener('change', event => {
+        const files = event.target.files;
+        if(!files || !files.length) return;
+        this.handleUpload(files[0]);
+      });
 
-    const embedForm = dom.querySelector('form');
-    embedForm.addEventListener('submit', event => {
-      event.preventDefault();
-      this.handleEmbed(event.target.elements.url.value);
-    });
+      const embedForm = dom.querySelector('form');
+      embedForm.addEventListener('submit', event => {
+        event.preventDefault();
+        this.handleEmbed(event.target.elements.url.value);
+      });
+    }
+    else {
+      dom.querySelector('.upload').remove();
+    }
 
     const ul = dom.querySelector('ul');
     const map = new Map();
