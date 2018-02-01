@@ -21,6 +21,7 @@ export default class AddPet {
     const pet = {};
     data.forEach((value, key) => pet[key] = value);    
     
+    pet.owner = auth.currentUser.uid;
     const ref = pets.push();
     
     const updates = {
