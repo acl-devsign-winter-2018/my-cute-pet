@@ -22,9 +22,16 @@ export default class App {
     this.hashChange = () => this.setPage();
     window.addEventListener('hashchange', this.hashChange);
 
+    let authed = false;
+
     auth.onAuthStateChanged(user => {
       this.user = user;
-      
+
+      if(!authed) {
+        authed = true;  
+        this.setPage();
+      }  
+
       // if no user, make sure we are on a public page
       if(!user && !this.page.isPublic) {
         window.location.hash = '#';
@@ -68,7 +75,8 @@ export default class App {
 
     dom.querySelector('header').appendChild(new Header().render());
     this.main = dom.querySelector('main');
-    this.setPage();
+
+    // don't set page here, wait for auth to make it happen
 
     return dom;
   }

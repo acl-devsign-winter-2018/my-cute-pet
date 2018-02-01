@@ -1,0 +1,102 @@
+[debug] [2018-02-01T18:36:17.749Z] ----------------------------------------------------------------------
+[debug] [2018-02-01T18:36:17.751Z] Command:       /Users/marty/.node/bin/node /Users/marty/.node/bin/firebase deploy
+[debug] [2018-02-01T18:36:17.751Z] CLI Version:   3.17.4
+[debug] [2018-02-01T18:36:17.751Z] Platform:      darwin
+[debug] [2018-02-01T18:36:17.751Z] Node Version:  v9.4.0
+[debug] [2018-02-01T18:36:17.751Z] Time:          Thu Feb 01 2018 10:36:17 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:17.752Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-01T18:36:17.763Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-01T18:36:17.763Z] > authorizing via signed-in user
+[debug] [2018-02-01T18:36:17.765Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-01T18:36:17.765Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/mUPcB7xL0ECWWRgX1xxh4bDV000tfpjMSVfs47petRM',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Feb 01 2018 10:36:17 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:18.185Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:36:18.200Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-cute-pet  
+  
+ Thu Feb 01 2018 10:36:18 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:18.573Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:36:18.574Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-cute-pet/tokens  
+  
+ Thu Feb 01 2018 10:36:18 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:19.044Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'my-cute-pet'...
+[info] 
+[info] i  deploying database, storage, hosting
+[info] i  database: checking rules syntax...
+[debug] [2018-02-01T18:36:19.336Z] >>> HTTP REQUEST PUT https://my-cute-pet.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+ 
+ Thu Feb 01 2018 10:36:19 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:19.813Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules syntax for database my-cute-pet is valid
+[debug] [2018-02-01T18:36:19.814Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/my-cute-pet  
+  
+ Thu Feb 01 2018 10:36:19 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:20.633Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-02-01T18:36:20.637Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/my-cute-pet:test  
+ { source: { files: [ [Object] ] } } 
+ Thu Feb 01 2018 10:36:20 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:20.958Z] <<< HTTP RESPONSE 200
+[info] ✔  storage: rules file storage.rules compiled successfully
+[info] i  storage: uploading rules storage.rules...
+[debug] [2018-02-01T18:36:20.966Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/my-cute-pet/rulesets  
+ { source: { files: [ [Object] ] } } 
+ Thu Feb 01 2018 10:36:20 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:21.393Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:36:21.393Z] [rules] created ruleset projects/my-cute-pet/rulesets/ba3cd456-aef7-4a18-b604-92c4c18edf46
+[info] i  hosting: preparing docs directory for upload...
+[debug] [2018-02-01T18:36:21.538Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/my-cute-pet/uploads/-L4Hdw0BOrqK9oIbfE5K?fileCount=3&message=  
+  
+ Thu Feb 01 2018 10:36:21 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:23.241Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:36:23.242Z] [hosting] .tgz uploaded successfully, waiting for extraction
+[info] ✔  hosting: 3 files uploaded successfully
+[info] i  database: releasing rules...
+[debug] [2018-02-01T18:36:24.118Z] >>> HTTP REQUEST PUT https://my-cute-pet.firebaseio.com/.settings/rules.json  
+ {
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+ 
+ Thu Feb 01 2018 10:36:24 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:24.524Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules for database my-cute-pet released successfully
+[debug] [2018-02-01T18:36:24.525Z] [rules] releasing firebase.storage/my-cute-pet.appspot.com with ruleset projects/my-cute-pet/rulesets/ba3cd456-aef7-4a18-b604-92c4c18edf46
+[debug] [2018-02-01T18:36:24.525Z] >>> HTTP REQUEST PATCH https://firebaserules.googleapis.com/v1/projects/my-cute-pet/releases/firebase.storage/my-cute-pet.appspot.com  
+ { release: 
+   { name: 'projects/my-cute-pet/releases/firebase.storage/my-cute-pet.appspot.com',
+     rulesetName: 'projects/my-cute-pet/rulesets/ba3cd456-aef7-4a18-b604-92c4c18edf46' } } 
+ Thu Feb 01 2018 10:36:24 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:24.934Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:36:24.934Z] [rules] updated release projects/my-cute-pet/releases/firebase.storage/my-cute-pet.appspot.com
+[info] ✔  storage: released rules storage.rules to firebase.storage/my-cute-pet.appspot.com
+[debug] [2018-02-01T18:36:24.935Z] >>> HTTP REQUEST POST https://deploy.firebase.com/v1/projects/my-cute-pet/releases  
+ { hosting: 
+   { public: 'docs',
+     ignore: [ 'firebase.json', '**/.*', '**/node_modules/**' ],
+     rewrites: [ [Object] ],
+     version: '-L4Hdw0BOrqK9oIbfE5K',
+     prefix: '-L4Hdw0BOrqK9oIbfE5K/',
+     manifest: [] } } 
+ Thu Feb 01 2018 10:36:24 GMT-0800 (PST)
+[debug] [2018-02-01T18:36:25.650Z] <<< HTTP RESPONSE 200
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/my-cute-pet/overview
+[info] Hosting URL: https://my-cute-pet.firebaseapp.com
