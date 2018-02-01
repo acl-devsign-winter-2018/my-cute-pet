@@ -2,6 +2,7 @@ import Template from '../Template';
 import html from './auth.html';
 import { auth, providers } from '../../services/firebase';
 import firebaseui from 'firebaseui';
+// has one missing resource. doesn't seem important, but currently using <link>
 // import 'firebaseui/dist/firebaseui.css';
 
 const ui = new firebaseui.auth.AuthUI(auth);
