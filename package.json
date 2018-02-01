@@ -9,7 +9,8 @@
     "pretest": "npm run lint && npm run htmlhint",
     "test": "echo \"Error: no tests yet!\" && exit 0",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "firebase deploy"
   },
   "author": "Marty Nelson <marty@martypdx.com>",
   "license": "MIT",
