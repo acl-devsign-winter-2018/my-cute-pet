@@ -18,8 +18,9 @@ export default class Auth {
     const dom = template.clone();
 
     setTimeout(() => {
+      const { origin, pathname } = window.location;
       ui.start('#auth-container', {
-        signInSuccessUrl: `${window.location.origin}${this.redirect}`,
+        signInSuccessUrl: `${origin}${pathname}${this.redirect}`,
         signInOptions: [
           providers.EmailAuthProvider.PROVIDER_ID,
           providers.GithubAuthProvider.PROVIDER_ID
