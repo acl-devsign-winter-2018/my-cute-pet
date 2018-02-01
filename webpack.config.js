@@ -1,6 +1,7 @@
 /* eslint-env node */
+require('dotenv').config();
 const HtmlPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   // our starting point for our javascript
@@ -18,8 +19,14 @@ module.exports = {
   devtool: 'inline-source-map',
   // These add high-level functionality to webpack
   plugins: [
-    // cleans the build directory on each build
-    // new CleanWebpackPlugin(`${__dirname}/build`),
+    new webpack.DefinePlugin({
+      'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+      'process.env.AUTH_DOMAIN': JSON.stringify(process.env.AUTH_DOMAIN),
+      'process.env.DATABASE_URL': JSON.stringify(process.env.DATABASE_URL),
+      'process.env.PROJECT_ID': JSON.stringify(process.env.PROJECT_ID),
+      'process.env.STORAGE_BUCKET': JSON.stringify(process.env.STORAGE_BUCKET),
+      'process.env.MESSAGING_SENDER_ID': JSON.stringify(process.env.MESSAGING_SENDER_ID) 
+    }),
     // create an index.html based on our template,
     // will add in <script> to bundle.js
     new HtmlPlugin({ template: './src/index.html' }),

@@ -1,8 +1,10 @@
 /* eslint-env node */
+require('dotenv').config('.env.prod');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
@@ -12,7 +14,15 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(`${__dirname}/docs`),
+    new CleanWebpackPlugin(`${__dirname}/docs`), 
+    new webpack.DefinePlugin({
+      'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+      'process.env.AUTH_DOMAIN': JSON.stringify(process.env.AUTH_DOMAIN),
+      'process.env.DATABASE_URL': JSON.stringify(process.env.DATABASE_URL),
+      'process.env.PROJECT_ID': JSON.stringify(process.env.PROJECT_ID),
+      'process.env.STORAGE_BUCKET': JSON.stringify(process.env.STORAGE_BUCKET),
+      'process.env.MESSAGING_SENDER_ID': JSON.stringify(process.env.MESSAGING_SENDER_ID) 
+    }),
     new ExtractTextPlugin('styles.css'),
     new HtmlPlugin({ template: './src/index.html' }),
     new UglifyJsPlugin({ sourceMap: true })
