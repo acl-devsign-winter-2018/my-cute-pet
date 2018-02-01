@@ -11,7 +11,7 @@ module.exports = {
     filename: 'bundle.js',
     // This path is for npm run build, 
     // npm start (webpackdevserver) runs in a temp folder
-    path: `${__dirname}/build`,
+    path: `${__dirname}/docs`,
   },
   // gives us source maps (we debug code we wrote, not what ended up
   // getting "built")
