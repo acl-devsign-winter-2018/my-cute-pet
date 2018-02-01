@@ -1,14 +1,17 @@
 import Template from '../../Template';
 import html from './add-pet.html';
 import './add-pet.css';
-import { db } from '../../../services/firebase';
+import { db, auth } from '../../../services/firebase';
 
 const template = new Template(html);
 const pets = db.ref('pets');
+const petsByUser = db.ref('petsByUser');
 
 export default class AddPet {
   constructor(onAdd) {
     this.onAdd = onAdd;
+    const currentUser = auth.currentUser;
+    this.myPets = petsByUser.child(currentUser.uid);
   }
 
   handleSubmit(form) {
@@ -19,7 +22,13 @@ export default class AddPet {
     data.forEach((value, key) => pet[key] = value);    
     
     const ref = pets.push();
-    ref.set(pet)
+    
+    const updates = {
+      [ref.path]: pet,
+      [this.myPets.child(ref.key).path]: true
+    };
+
+    db.ref().update(updates)
       .then(() => window.location.hash = `#pets/${ref.key}`)
       .catch(err => this.error.textContent = err);
   }

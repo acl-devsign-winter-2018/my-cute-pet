@@ -8,7 +8,10 @@ const template = new Template(html);
 const pets = db.ref('pets');
 
 export default class PetList {
-  
+  constructor(list) {
+    this.list = list || pets;
+  }
+
   render() {
     const dom = template.clone();
     
@@ -16,8 +19,8 @@ export default class PetList {
 
     const map = new Map();
 
-    this.childAdded = pets.on('child_added', data => {
-      const pet = new Pet(data.key, data.val());
+    this.childAdded = this.list.on('child_added', data => {
+      const pet = new Pet(data.key);
       const petDom = pet.render();
       map.set(data.key, {
         component: pet,
@@ -27,16 +30,16 @@ export default class PetList {
       ul.appendChild(petDom);
     });
 
-    this.childRemoved = pets.on('child_removed', data => {
+    this.childRemoved = this.list.on('child_removed', data => {
       const toRemove = map.get(data.key);
       map.delete(data.key);
       toRemove.nodes.forEach(node => node.remove());
       toRemove.component.unrender();
     });
 
-    this.childChange = pets.on('child_changed', data => {
-      map.get(data.key).component.update(data.val());
-    });
+    // this.childChange = this.list.on('child_changed', data => {
+    //   map.get(data.key).component.update(data.val());
+    // });
 
     return dom;
   }

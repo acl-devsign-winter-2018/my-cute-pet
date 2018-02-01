@@ -5,12 +5,13 @@ import { db } from '../../../services/firebase';
 import { getUrl } from '../../../services/cloudinary';
 
 const template = new Template(html);
+const pets = db.ref('pets');
 const petsImages = db.ref('pet-images');
 
 export default class Pet {
-  constructor(key, pet) {
+  constructor(key) {
     this.key = key;
-    this.pet = pet;
+    this.pet = pets.child(key);
     this.petImages = petsImages.child(key).limitToFirst(1);
   }
 
@@ -25,9 +26,11 @@ export default class Pet {
     this.caption = dom.querySelector('h2');
     this.image = dom.querySelector('img');
 
-    this.update(this.pet);
+    this.onValue = this.pet.on('value', data => {
+      this.update(data.val());
+    });
     
-    this.onValue = this.petImages.on('child_added', data => {
+    this.onImageValue = this.petImages.on('child_added', data => {
       this.image.src = getUrl(data.val(), 'e_sepia:80,c_scale,w_75');
     });
 
@@ -35,6 +38,7 @@ export default class Pet {
   }
 
   unrender() {
-    this.petImages.off('child_added', this.onValue);
+    this.pet.off('child_added', this.onValue);
+    this.petImages.off('child_added', this.onImageValue);
   }
 }
