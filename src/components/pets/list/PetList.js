@@ -17,7 +17,7 @@ export default class PetList {
     
     const ul = dom.querySelector('ul');
 
-    const map = new Map();
+    const map = this.map = new Map();
 
     this.childAdded = this.list.on('child_added', data => {
       const pet = new Pet(data.key);
@@ -48,5 +48,6 @@ export default class PetList {
     pets.off('child_added', this.childAdded);
     pets.off('child_removed', this.childRemoved);
     pets.off('child_changed', this.childChange);
+    this.map.forEach(({ component }) => component.unrender());
   }
 }

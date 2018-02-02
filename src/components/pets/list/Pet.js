@@ -27,6 +27,7 @@ export default class Pet {
     this.image = dom.querySelector('img');
 
     this.onValue = this.pet.on('value', data => {
+
       this.update(data.val());
     });
     
@@ -38,7 +39,7 @@ export default class Pet {
   }
 
   unrender() {
-    this.pet.off('child_added', this.onValue);
+    this.pet.off('value', this.onValue);
     this.petImages.off('child_added', this.onImageValue);
   }
 }
