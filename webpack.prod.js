@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('dotenv').config('.env.prod');
+require('dotenv').config({ path: '.env.prod' });
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
