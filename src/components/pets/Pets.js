@@ -17,7 +17,7 @@ export default class Pets {
   }
 
   updateHeader(mine) {
-    this.header.textContent = `${mine ? 'My ' : ''}Really Cute Pets :)`;
+    this.header.textContent = `${mine ? 'My ' : ''}Really Cute Pets :)!`;
   }
 
   setChildPage() {

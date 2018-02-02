@@ -9,7 +9,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: 'bundle.js',
+    filename: '[hash].bundle.js',
     path: `${__dirname}/docs`,
   },
   devtool: 'source-map',
@@ -23,7 +23,7 @@ module.exports = {
       'process.env.STORAGE_BUCKET': JSON.stringify(process.env.STORAGE_BUCKET),
       'process.env.MESSAGING_SENDER_ID': JSON.stringify(process.env.MESSAGING_SENDER_ID) 
     }),
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('[hash].styles.css'),
     new HtmlPlugin({ template: './src/index.html' }),
     new UglifyJsPlugin({ sourceMap: true })
   ],
